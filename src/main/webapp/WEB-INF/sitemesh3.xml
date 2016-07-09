@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemesh>
+<mapping path="/*" decorator="/WEB-INF/common/maindecorator.jsp"></mapping>
+<mapping path="*/getcatalog*" exclude="true" />
+<mapping path="*/createOrUpdate/*" exclude="true" />
+</sitemesh>

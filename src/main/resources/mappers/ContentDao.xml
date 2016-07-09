@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.collections.dao.ContentDao">
+     
+    <!-- 查询文章类型 -->
+    <select id="queryTypes" resultType="com.collections.model.TypeModel">
+        select id, type, `desc` from articletype
+    </select> 
+     
+    <!-- 查询内容 -->
+    <select id="queryContent" parameterType="int" resultType="com.collections.model.ContentModel">
+        select id, content, title, keywords, type_id as typeId from article where id=#{id}
+    </select> 
+    
+     <!-- 根据文章类型和文章的关键字查询文章 -->
+    <select id="queryCatalog" resultType="com.collections.model.ContentModel">
+        select a.id, a.content, type.id, a.title, a.keywords from article a, articletype type 
+        where a.type_id = type.id and type.id = #{0, jdbcType=INTEGER} and lower(a.keywords) like #{1, jdbcType=VARCHAR} 
+         order by a.type_id asc limit #{2, jdbcType=INTEGER},#{3, jdbcType=INTEGER}
+    </select>
+     <!-- total count of catalog -->
+    <select id="catalogTotalCount" resultType="int">
+        select count(*) from article a, articletype type 
+        where a.type_id = type.id and type.id = #{0, jdbcType=INTEGER} and lower(a.keywords) like #{1, jdbcType=VARCHAR} 
+    </select>
+    
+    <insert id="saveContent" parameterType="com.collections.model.ContentModel" keyProperty="id">
+    	insert into article(content, title, keywords, type_id) values(#{content}, #{title}, #{keywords}, #{typeId})
+    </insert>
+    <update id="updateContent" parameterType="com.collections.model.ContentModel" keyProperty="id">
+    	update article set content = #{content}, title = #{title}, keywords = #{keywords}, type_id=#{typeId} where id = #{id}
+    </update>
+</mapper>
