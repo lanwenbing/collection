@@ -14,12 +14,24 @@ pageContext.setAttribute("basePath",basePath);
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>文章编辑</title>
+<script src="${basePath}js/jquery.min.js"></script>
+<script src="${basePath}css/bootstrap-3.3.6/js/bootstrap.min.js"></script>
 <script src="${basePath}js/ckeditor/ckeditor.js"></script>
+<script src="${basePath}js/bootstrap-fileinput/js/plugins/canvas-to-blob.min.js" type="text/javascript"></script>
+<script src="${basePath}js/bootstrap-fileinput/js/plugins/sortable.min.js" type="text/javascript"></script>
+<script src="${basePath}js/bootstrap-fileinput/js/plugins/purify.min.js" type="text/javascript"></script>
+<script src="${basePath}js/bootstrap-fileinput/js/fileinput.min.js"></script>
+<script src="${basePath}js/bootstrap-fileinput/themes/fa/theme.js"></script>
+<script src="${basePath}js/bootstrap-fileinput/js/locales/zh.js"></script>
+<link rel="stylesheet" href="${basePath}css/fileinput.min.css" media="screen">
 <style type="text/css">
 .message{
 	color:red;
 }
 </style>
+<script type="text/javascript">
+$("#input-id").fileinput({'showUpload':true, 'previewFileType':'any'});
+</script>
 </head>
 <body>
 <div class="title">
@@ -27,6 +39,8 @@ pageContext.setAttribute("basePath",basePath);
 </div>
 <div class="subcontent">
 	<div id="message" class="message"></div>
+	<label for="disabledTextInput">文章logo：</label>
+	<input id="input-id" type="file" class="file" data-preview-file-type="text">
 	<form action ="${basePath}manage/articlemanagement/createOrUpdate/${content.id}.do" method="post" id="submit_form">
 	  <fieldset>
 	    <div class="form-group">
@@ -55,9 +69,10 @@ pageContext.setAttribute("basePath",basePath);
 	    <button type="submit" class="btn btn-primary">提交</button>
 	  </fieldset>
 	</form>
-	<ckeditor:replace replace="editor1" basePath="/ckeditor/" />
+	
 </div>
 <script>
+	
     CKEDITOR.replace( 'editor' ,
         {filebrowserBrowseUrl : '/browser/browse.php',
          filebrowserImageBrowseUrl : '${basePath}upload/uploadImg.do?type=Images',
@@ -102,7 +117,7 @@ pageContext.setAttribute("basePath",basePath);
     	            });
     	        });
     	    }
-    	);
+  );
 </script>
 </body>
 </html>

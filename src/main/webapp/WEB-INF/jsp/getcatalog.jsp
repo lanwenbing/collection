@@ -35,21 +35,31 @@ pageContext.setAttribute("basePath",basePath);
 	        </ul>
 	      </div>
 	    </div>
-    	<input type="text" class="form-control" placeholder="每页篇数" name="numInOnePage" value="${result.numInOnePage}" id="numInOnePage" onchange="changePage();">
+    	<%-- <input type="text" class="form-control" placeholder="每页篇数" name="numInOnePage" value="${result.numInOnePage}" id="numInOnePage" onchange="changePage();"> --%>
 	  </div>
 	  <button type="button" class="btn btn-default" onclick="getCatalog(1);">提交</button>
 	</form>
 </div>
 <div class="subcontent">
 	<div>
-		<table class="table table-striped table-bordered" id="contenttable"></table>
+		<table class="table table-striped table-bordered" id="contenttable">
+			<thead id="thead">
+				<tr>
+					<th class='col-left col-sm-1'>序号</th>
+					<th class='col-left col-sm-4'>标题</th>
+					<th class='col-left col-sm-4'>关键字</th>
+					<th class='col-left col-sm-4'>编辑</th>
+				</tr>
+			</thead>
+			<tbody id="tbody"></tbody>
+		</table>
 	</div>
 	<nav class="center">
 	  <ul class="pagination" id="pagination"></ul>
 	</nav>
 </div>
 <script type="text/javascript">
-
+	getCatalog(1);
 	var lastPageNum = 0;
 	function changeType(id,desc){
 		require(["dojo/dom"],
@@ -72,7 +82,8 @@ pageContext.setAttribute("basePath",basePath);
 	    	        var form = dom.byId('submit_form');
 	    	        var desc = dom.byId('desc').value;
 	    	        var typeid = dom.byId('typeid').value;
-	    	        var numInOnePage = dom.byId('numInOnePage').value;
+	    	        //var numInOnePage = dom.byId('numInOnePage').value;
+	    	        numInOnePage= 10;
     	            // Post the data to the server
     	            request.post("/collection/content/getcatalog.do", {
     	                data: {
@@ -87,15 +98,13 @@ pageContext.setAttribute("basePath",basePath);
     	            		var list = response.content;
     	            		var pagination = dom.byId('pagination');
     	            		var contenttable = dom.byId("contenttable");
-	    	            		domConstruct.empty("contenttable");
-	    	            		domConstruct.create("tr", {
-		    	                    innerHTML: "<th class='col-left col-sm-2'>序号</th><th class='col-left col-sm-6'>标题</th><th class='col-left col-sm-4'>关键字</th>"
-		    	                }, contenttable);
-	    	            		for(var i=0;i<list.length;i++){
-			    	                domConstruct.create("tr", {
-			    	                    innerHTML: "<td class='col-left col-sm-2'>"+list[i].id+"</td><td class='col-left col-sm-6'><a href='/ai/content/searchcontent/"+list[i].id+".do'>"+list[i].title+"</a></td><td class='col-left col-sm-4'>"+list[i].keywords+"</td>"
-			    	                }, contenttable);
-	    	            		}
+    	            		var tbody = dom.byId("tbody");
+    	            		domConstruct.empty("tbody");
+    	            		for(var i=0;i<list.length;i++){
+		    	                domConstruct.create("tr", {
+		    	                    innerHTML: "<td class='col-left col-sm-1'>"+list[i].id+"</td><td class='col-left col-sm-4'>"+list[i].title+"</td><td class='col-left col-sm-4'>"+list[i].keywords+"</td><td class='col-left col-sm-4'><a href='${basePath}manage/articlemanagement/"+list[i].id+".do'>"+list[i].title+"</a></td>"
+		    	                }, tbody);
+    	            		}
 	    	            		if(lastPageNum!=0&&response.allPageNum-response.currentPageNum<=1){
 	    	            		}else{
 	    	            			domConstruct.empty("pagination");

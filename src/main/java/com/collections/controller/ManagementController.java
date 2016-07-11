@@ -40,7 +40,7 @@ public class ManagementController{
 	@ResponseBody
 	public ControllerResult<List<ContentModel>> getCatalog(HttpServletRequest request,HttpServletResponse response) {
 		
-		Integer type = Integer.valueOf(request.getParameter("type")!=null?request.getParameter("type"):"1");
+		Integer type = request.getParameter("type")!=null&&request.getParameter("type")!=""&&request.getParameter("type")!="none"?Integer.valueOf(request.getParameter("type")):0;
 		String desc = (String) request.getParameter("desc");
 		Integer numInOnePage = Integer.valueOf(request.getParameter("numInOnePage")!=null?request.getParameter("numInOnePage"):"5");
 		Integer currentPageNum = Integer.valueOf(request.getParameter("currentPageNum")!=null?request.getParameter("currentPageNum"):"1");

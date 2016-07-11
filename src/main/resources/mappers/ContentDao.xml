@@ -18,13 +18,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
      <!-- 根据文章类型和文章的关键字查询文章 -->
     <select id="queryCatalog" resultType="com.collections.model.ContentModel">
         select a.id, a.content, type.id, a.title, a.keywords from article a, articletype type 
-        where a.type_id = type.id and type.id = #{0, jdbcType=INTEGER} and lower(a.keywords) like #{1, jdbcType=VARCHAR} 
-         order by a.type_id asc limit #{2, jdbcType=INTEGER},#{3, jdbcType=INTEGER}
+        where a.type_id = type.id 
+        and 
+        case when #{0, jdbcType=INTEGER} = '' then true
+        else type.id = #{0, jdbcType=INTEGER} end 
+        and 
+        case when #{1, jdbcType=VARCHAR} = '' then true
+        else lower(a.keywords) like #{1, jdbcType=VARCHAR} end
+        order by a.type_id asc limit #{2, jdbcType=INTEGER},#{3, jdbcType=INTEGER}
     </select>
      <!-- total count of catalog -->
     <select id="catalogTotalCount" resultType="int">
         select count(*) from article a, articletype type 
-        where a.type_id = type.id and type.id = #{0, jdbcType=INTEGER} and lower(a.keywords) like #{1, jdbcType=VARCHAR} 
+        where a.type_id = type.id
+        and 
+        case when #{0, jdbcType=INTEGER} = '' then true
+        else type.id = #{0, jdbcType=INTEGER} end 
+        and 
+        case when #{1, jdbcType=VARCHAR} = '' then true
+        else lower(a.keywords) like #{1, jdbcType=VARCHAR} end
     </select>
     
     <insert id="saveContent" parameterType="com.collections.model.ContentModel" keyProperty="id">
