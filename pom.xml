@@ -260,8 +260,8 @@
             <artifactId>maven-compiler-plugin</artifactId>  
             <version>2.0.2</version>  
             <configuration>  
-                <source>1.8</source>  
-                <target>1.8</target>  
+                <source>1.7</source>  
+                <target>1.7</target>  
             </configuration>  
         </plugin> 
         <plugin>
@@ -271,7 +271,7 @@
            <configuration>
                <scanIntervalSeconds>5</scanIntervalSeconds>
                <webApp>
-                   <contextPath>/collections</contextPath>
+                   <contextPath>/collection</contextPath>
                </webApp>
                <connectors>
                     <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">

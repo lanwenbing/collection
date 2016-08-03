@@ -13,13 +13,14 @@ pageContext.setAttribute("basePath",basePath);
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title><c:out value="${content.title}"/></title>
+<link href="${basePath}css/bootstrap-3.3.6/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="/ai//css/algorithm.css" media="screen">
 </head>
 <body>
-<div class="title"><c:out value="${content.title}"/></div>
+<div class="title"><c:out value="${content.title}" escapeXml="false"/></div>
 <div class="subcontent">
 	<div>
-		<c:out value="${content.content}"/>
+		<c:out value="${content.content}" escapeXml="false"/>
 	</div>
 </div>
 </body>

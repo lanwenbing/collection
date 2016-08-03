@@ -3,4 +3,6 @@
 <mapping path="/*" decorator="/WEB-INF/common/maindecorator.jsp"></mapping>
 <mapping path="*/getcatalog*" exclude="true" />
 <mapping path="*/createOrUpdate/*" exclude="true" />
+<mapping path="*/upload/index*" exclude="true" />
+<mapping path="*/upload/uploadTitleImag*" exclude="true" />
 </sitemesh>

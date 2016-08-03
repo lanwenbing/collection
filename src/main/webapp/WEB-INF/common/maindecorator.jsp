@@ -19,7 +19,6 @@ pageContext.setAttribute("basePath",basePath);
 <link rel="stylesheet" href="${basePath}css/ai.css" media="screen">
 <link rel="stylesheet" href="${basePath}js/dojo/dijit/themes/claro/claro.css" media="screen">
 <link href="${basePath}css/bootstrap-3.3.6/css/bootstrap.min.css" rel="stylesheet">
-<script src="${basePath}js/jquery.min.js"></script>
 <script src="${basePath}css/bootstrap-3.3.6/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 var dojoConfig = {
