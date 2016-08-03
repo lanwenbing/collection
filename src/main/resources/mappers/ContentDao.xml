@@ -12,12 +12,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
      
     <!-- 查询内容 -->
     <select id="queryContent" parameterType="int" resultType="com.collections.model.ContentModel">
-        select id, content, title, keywords, type_id as typeId from article where id=#{id}
+        select id, content, title, keywords, type_id as typeId, image_dir as imageDir from article where id=#{id}
     </select> 
     
      <!-- 根据文章类型和文章的关键字查询文章 -->
     <select id="queryCatalog" resultType="com.collections.model.ContentModel">
-        select a.id, a.content, type.id, a.title, a.keywords from article a, articletype type 
+        select a.id, a.content, type.id as typeId, a.title, a.keywords, a.image_dir as imageDir from article a, articletype type 
         where a.type_id = type.id 
         and 
         case when #{0, jdbcType=INTEGER} = '' then true
@@ -40,9 +40,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <insert id="saveContent" parameterType="com.collections.model.ContentModel" keyProperty="id">
-    	insert into article(content, title, keywords, type_id) values(#{content}, #{title}, #{keywords}, #{typeId})
+    	insert into article(content, title, keywords, type_id, image_dir) values(#{content}, #{title}, #{keywords}, #{typeId}, #{imageDir})
     </insert>
     <update id="updateContent" parameterType="com.collections.model.ContentModel" keyProperty="id">
-    	update article set content = #{content}, title = #{title}, keywords = #{keywords}, type_id=#{typeId} where id = #{id}
+    	update article set content = #{content}, title = #{title}, keywords = #{keywords}, type_id=#{typeId}, image_dir=#{imageDir} where id = #{id}
     </update>
 </mapper>
