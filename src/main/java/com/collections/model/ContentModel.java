@@ -7,6 +7,7 @@ public class ContentModel {
 	private String content;
 	private String keywords;
 	private Integer typeId;
+	private String imageDir;
 
 	public Integer getId() {
 		return id;
@@ -46,6 +47,14 @@ public class ContentModel {
 
 	public void setTypeId(Integer typeId) {
 		this.typeId = typeId;
+	}
+
+	public String getImageDir() {
+		return imageDir;
+	}
+
+	public void setImageDir(String imageDir) {
+		this.imageDir = imageDir;
 	}
 
 	
